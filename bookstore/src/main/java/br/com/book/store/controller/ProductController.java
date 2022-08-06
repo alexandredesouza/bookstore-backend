@@ -2,6 +2,8 @@ package br.com.book.store.controller;
 
 import java.util.List;
 
+import br.com.book.store.service.ProductService;
+import br.com.book.store.strategy.CalculoImpostoStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.book.store.entity.Product;
-import br.com.book.store.service.ProductService;
 
 @RestController
 @RequestMapping("/product")
@@ -23,6 +24,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService service;
+
+	@Autowired
+	private CalculoImpostoStrategy calculoImposto;
 
 	@GetMapping
 	public List<Product> buscarTodos() {
@@ -43,5 +47,5 @@ public class ProductController {
 	public ResponseEntity<Product> editar(@RequestBody Product product) {
 		return new ResponseEntity<Product>(service.atualizar(product), new HttpHeaders(), HttpStatus.OK);
 	}
-
+	
 }
